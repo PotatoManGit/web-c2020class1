@@ -1,4 +1,5 @@
 <?php
+include 'data/php/function/MysqlControl.php';
 
 ?>
 <!DOCTYPE html>
