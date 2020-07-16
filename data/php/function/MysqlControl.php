@@ -12,7 +12,8 @@ function connectMysql($host/*数据库url*/, $user/*用户名*/, $password/*密�
         $pdo = new PDO($dsn, $user, $password);// 连接
         $pdo -> setAttribute(PDO::ATTR_ERRMODE,
             PDO::ERRMODE_EXCEPTION);//错误处理方式设置
-        $pdo -> exec("USE %s",$database);
+        $useDataBase = sprintf("USE %s",$database);
+        $pdo -> exec($useDataBase);
     } catch (PDOException $e) { // 错误处理
         die($e->getMessage());
     }

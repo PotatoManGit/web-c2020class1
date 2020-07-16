@@ -1,0 +1,23 @@
+@font-face {
+    font-family: "ZiTiGuanJiaFangMeng";
+    src: url("/data/web/data/font/ZiTiGuanJiaFangMeng.ttf")
+    format('truetype');
+}
+.indexBodySetting {
+    background-image:url("/data/web/data/img/background/indexMainBg.png");
+    background-attachment:fixed;
+    background-repeat:no-repeat;
+    background-size:cover;
+    -moz-background-size:cover;
+    -webkit-background-size:cover;
+}
+
+.div_top {
+    text-align: center;
+    margin-top: 10%;
+}
+
+h1 {
+    font-family: ZiTiGuanJiaFangMeng;
+    font-size: 45px;
+}
