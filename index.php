@@ -1,6 +1,7 @@
 <?php
 include 'data/php/function/MysqlControl.php';
-
+$pdo=connectMysql("127.0.0.1","c2020class1.potatost.xyz",
+    "St189669Potatostudio","c2020class1.potatost.xyz","utf-8");
 ?>
 <!DOCTYPE html>
 <html lang="zh">
