@@ -12,6 +12,14 @@
     -webkit-background-size:cover;
 }
 
+a {
+    text-decoration: none;
+    color: #ff7020;
+}
+a:hover {
+    color: #6eff6f;
+}
+
 h1 {
     font-family: ZiTiGuanJiaFangMeng;
     font-size: 45px;
