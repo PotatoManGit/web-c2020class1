@@ -32,7 +32,9 @@
                    pattern="[A-Za-z0-9]{6,16}" title="密码输入格式错误，请检查后输入"
                    placeholder="密码"/>
             <br/>
-            <button class="buttonStyle_01" type="submit" autofocus>haha</button>
+            <div class="div_bottom">
+                <button class="buttonStyle_01" type="submit" autofocus>登 录</button>
+            </div>
         </form>
     </div></center>
 </body>

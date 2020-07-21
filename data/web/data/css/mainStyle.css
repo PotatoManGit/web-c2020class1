@@ -39,6 +39,7 @@ h5 {
     font-size: 15px;
 }
 
+/*第一种按钮样式*/
 .buttonStyle_01 {
     background-color: rgba(255,92,67,0);
     border-color: #efffb8;
@@ -62,4 +63,9 @@ h5 {
     bottom: 0;
     margin-top: 10%;
     text-align: center;
+}
+
+/*第一种form input样式*/
+.formInputStyle_01 {
+
 }
