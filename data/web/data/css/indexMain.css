@@ -6,12 +6,18 @@
     text-align: center;
     margin-top: 2%;
     width: 60%;
-    border-radius: 50%;
+    border-radius: 100px;
     border-style: double;
     border-width: 10px;
     border-color: #f6fff4;
 }
-.div_body_1 {
+.div_body_2 {
     margin-top: 5%;
-
+    text-align: center;
+}
+.div_body_3 {
+    margin-top: 5%;
+    text-align: center;
+    padding-top: 3%;
+    padding-bottom: 3%;
 }

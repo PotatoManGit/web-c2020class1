@@ -4,7 +4,8 @@
     format('truetype');
 }
 .indexBodySetting {
-    background-image:url("/data/web/data/img/background/indexMainBg.png");
+    background-image:linear-gradient( rgba(0, 0, 0, 0.36), rgba(0, 0, 0, 0.36)),
+            url("/data/web/data/img/background/indexMainBg.png");
     background-attachment:fixed;
     background-repeat:no-repeat;
     background-size:cover;
@@ -14,14 +15,15 @@
 
 a {
     text-decoration: none;
-    color: #ff7020;
+    color: #ffffff;
 }
 a:hover {
-    color: #6eff6f;
+    transition: 150ms;
+    color: #cff1ba;
 }
 
 h1 {
-    font-family: ZiTiGuanJiaFangMeng;
+    /*font-family: ZiTiGuanJiaFangMeng;*/
     font-size: 45px;
 }
 h2 {
@@ -38,15 +40,26 @@ h5 {
 }
 
 .buttonStyle_01 {
-    margin-top: 15%;
-    margin-bottom: 15%;
-    border-color: #ff491f;
+    background-color: rgba(255,92,67,0);
+    border-color: #efffb8;
     border-style: solid;
-    border-width: 3px;
-    width: 100px;
-    height: 40px;
+    border-width: 2px;
+    border-radius: 30px;
+    width: 160px;
+    height: 50px;
+    color: #efffb8;
+    font-size: 30px;
+    cursor: pointer;
 
 }
 .buttonStyle_01:hover {
-
+    transition: 250ms;
+    border-color: #dfffa4;
+    color: #000000;
+    background-color: #dfffa4;
+}
+.div_bottom {
+    bottom: 0;
+    margin-top: 10%;
+    text-align: center;
 }
