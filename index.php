@@ -11,7 +11,7 @@ function main(){
     //    die($e->getMessage());
     //}
     if(true){
-        echo readfile("data/web/index.html");//构造主页
+        echo fileRead("data/web/index.html");//构造主页
     }
 }
 main();

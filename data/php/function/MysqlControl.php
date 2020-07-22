@@ -12,14 +12,23 @@ function connectMysql($host/*数据库url*/, $user/*用户名*/, $password/*密�
         $pdo = new PDO($dsn, $user, $password);// 连接
         $pdo -> setAttribute(PDO::ATTR_ERRMODE,
             PDO::ERRMODE_EXCEPTION);//错误处理方式设置
-        $useDataBase = sprintf("USE %s",$database);
+        $useDataBase = sprintf("USE %s", $database);
         $pdo -> exec($useDataBase);
     } catch (PDOException $e) { // 错误处理
         die($e->getMessage());
     }
     return $pdo;
 }
-//本函数用于创建表
-function createTable($pdo/*继承PDO*/, $tableName/*表名*/, $tableCharset/*表字符集*/){
+//本函数用于表查询，只能查询一个结果
+function inquireTable($pdo/*PDO变量*/, $table/*表名*/, $key/*查询关键词*/,
+                      $inputName/*查询依据*/, $resName/*查询结果索引*/){
+    try{
+        $sql = sprintf("SELECT %s FROM %s WHERE %s LIKE '%s'",$resName ,$table, $inputName, $key);
+        $res = $pdo -> query($sql);//查询结果集
+        $result = $res -> fetch(PDO::FETCH_BOTH);
+        return $result[0];
 
+    }catch (PDOException $e) { // 错误处理
+        die($e->getMessage());
+    }
 }
