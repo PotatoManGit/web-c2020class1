@@ -16,6 +16,7 @@
 a {
     text-decoration: none;
     color: #ffffff;
+    cursor: pointer;
 }
 a:hover {
     transition: 150ms;
@@ -67,5 +68,13 @@ h5 {
 
 /*第一种form input样式*/
 .formInputStyle_01 {
-
+    /*background-color: rgba(255,92,67,0);*/
+    border-color: #ff9628;
+    border-style: solid;
+    border-width: 2px;
+    /*border-radius: 10px;*/
+    width: 300px;
+    height: 30px;
+    color: #000000;
+    font-size: 25px;
 }
