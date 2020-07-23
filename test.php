@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>初2020届一班留念</title>
     <link rel="stylesheet" href="/data/web/data/css/mainStyle.css">
-    <link rel="stylesheet" href="/wangEditor-master/src/css/mainStyle.css">
+    <link rel="stylesheet" href="/wangEditor-master/release/mainStyle.css">
 </head>
 <body class="indexBodySetting">
 <div id="editor" style="background: #fff9fb">
