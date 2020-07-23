@@ -1,28 +1,43 @@
 <?php
     include '../function/MysqlControl.php';
+    include '../function/PasswordMd5.php';
     function main(){
-
-        //获取表单数据
-        $username = $_POST["username"];
-        $password = $_POST["password"];
-//        $autoSignUp = $_POST["autoSignUp"];
-//
-//        echo $autoSignUp;
+        $html = "";
+        //获取cookie数据
+        $autoSingUpUser = passport_decrypt($_COOKIE["singUpUsername"], 189669);
+        $autoSingUpPass = passport_decrypt($_COOKIE["singUpPassword"], 189669);
 
         //连接数据库
         $pdo = connectMysql("127.0.0.1","root",
             "root","c2020class1_potatost_xyz","utf-8");
 
-        //查询
-        $getResult = inquireTable($pdo, "user_basic_data", $username,
-            "username", "password");
+        //获取表单数据
+        $username = $_POST["username"];
+        $password = $_POST["password"];
 
-        //数据比对
-        if($username != "" || $password != ""){
+
+        //自动登录
+        if($autoSingUpUser != "" && $autoSingUpPass != ""){
+            $getAutoResult = inquireTable($pdo, "user_basic_data", $autoSingUpUser,
+                "username", "password");
+            if($autoSingUpPass == $getAutoResult){
+                $html = "<h4 style=\"color: #efffb8\">登录成功，等待跳转</h4>";
+            }
+        }
+        else if($username != "" || $password != ""){
+            //查询
+            $getResult = inquireTable($pdo, "user_basic_data", $username,
+                "username", "password");
+
             if ($getResult != ""){//用户名错误
                 if($getResult == $password){
                     $html = "<h4 style=\"color: #efffb8\">登录成功，等待跳转</h4>";
-//                    setcookie("logoData");
+
+                    $cookieData = passport_encrypt($username, 189669);
+                    setcookie("singUpUsername", $cookieData, time()+3600*7*30);//保存一个月
+
+                    $cookieData = passport_encrypt($password, 189669);
+                    setcookie("singUpPassword", $cookieData, time()+3600*7*30);
                 }
                 else{
                     $html = "<h4 style=\"color: red\">密码错误</h4>";
@@ -31,9 +46,8 @@
             else{
                 $html = "<h4 style=\"color: red\">用户名错误</h4>";
             }
-            return $html;
         }
-        return "";
+        return $html;
     }
     ?>
 
@@ -41,7 +55,7 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>SingUp--初2020届一班留念</title>
+    <title>登入--初2020届一班留念</title>
     <link rel="icon" type="image/x-icon" href="/data/web/data/img/logo/logoMain.png"/>
     <link rel="stylesheet" href="/data/web/data/css/mainStyle.css">
     <link rel="stylesheet" href="/data/web/data/css/singMain.css">
