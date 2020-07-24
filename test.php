@@ -14,7 +14,8 @@ echo $_POST["textData"];
     <p>输入些什么呢？</p>
 </div><br/>
 <form action="test.php" method="post">
-    <label for="text"></label><input hidden type="text" name="textData" id="text">//转发js text内容于php
+<!--    转发js text内容于php-->
+    <label for="text"></label><input hidden type="text" name="textData" id="text">
     <button id="btn1" class="buttonStyle_01">获取html</button>
 </form>
 
@@ -27,7 +28,6 @@ echo $_POST["textData"];
 
     document.getElementById('btn1').addEventListener('click', function () {
         // 读取 html
-        // alert(editor.txt.html())
         document.getElementById("text").value = editor.txt.html();
     }, false)
     
