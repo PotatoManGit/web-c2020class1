@@ -94,7 +94,7 @@
     </div></center>
     <div class="div_body_2">
         <h4 style="color: #ffffff;">没有录入信息？点击
-            <a href="/data/php/userControl/singIn.php" style="color: #cff1ba">注册</a>
+            <a href="/data/php/userControl/singIn.php" style="color: #cff1ba">录入</a>
             <?php echo main(); ?>
         </h4>
     </div>
