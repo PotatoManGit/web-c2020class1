@@ -7,9 +7,13 @@ function fileRead($url/*文件地址和名称*/){
 }
 
 function fileUpload($dictionary/*存储的位置 格式：XXX/*/){
+    // 获取时间
+//    $date = date("Y-m-d");
+
     // 允许上传的图片后缀
     $allowedExts = array("gif", "jpeg", "jpg", "png");
     $temp = explode(".", $_FILES["file"]["name"]);
+
 //    echo $_FILES["file"]["size"];
     $extension = end($temp);     // 获取文件后缀名
     if ((($_FILES["file"]["type"] == "image/gif")

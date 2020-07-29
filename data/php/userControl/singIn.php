@@ -3,7 +3,32 @@ include '../function/FileControl.php';
 include '../function/MysqlControl.php';
 include '../function/PasswordMd5.php';
     function main(){
-        return fileUpload("asd");
+        $pdo = connectMysql();
+        if($_POST["license"]  != "" &&
+            $_POST["username"] != "" &&
+            $_POST["password"] != "" &&
+            $_POST["passwordAgain"] != "" ){
+
+            if($_POST["license"] == 189669){
+                if($_POST["password"] == $_POST["passwordAgain"]){
+                    $make = sprintf("INSERT INTO user_basic_data (username, password) 
+                            VALUES (%s, %s)", $_POST["username"], $_POST["password"]);
+                    $pdo -> exec($make);
+
+                    //获取用户ID
+                    $userID = inquireTable($pdo, "user_basic_data", $_POST["username"],
+                        "username", "id");
+
+
+                    return "ok";
+                } else{
+                    return "两次输入密码不一致";
+                }
+            } else{
+                return "请输入正确的许可码";
+            }
+        }
+      return "";
     }
 ?>
 
@@ -28,10 +53,11 @@ include '../function/PasswordMd5.php';
 
 <!--    主体内容-->
     <center><div class="div_body_1">
-        <form action="/data/php/userControl/singUp.php" method="post">
-            <input type="text" name="username" class="formInputStyle_01"
+            <h4 style="color: #ff2b2b;"><?php echo main(); ?></h4>
+        <form action="/data/php/userControl/singIn.php" method="post" enctype="multipart/form-data">
+            <input type="text" name="license" class="formInputStyle_01"
                    required
-                   pattern="[A-Za-z0-9]{1,20}" title="用户名输入格式错误，请检查后输入"
+                   pattern="189669" title="许可码错误"
                    placeholder="许可码：在QQ群里公布了!"/><br/><br/>
             <input type="text" name="username" class="formInputStyle_01"
                    required
@@ -45,6 +71,8 @@ include '../function/PasswordMd5.php';
                    required
                    pattern="[A-Za-z0-9]{6,20}" title="密码输入格式错误，请检查后输入"
                    placeholder="再输一遍密码"/><br/><br/>
+
+<!--            个人信息获取-->
             <h3 style="color: #dfffa4;">以下均为个人信息，请选填:</h3>
             <input type="text" name="email" class="formInputStyle_01"
                    pattern="[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" title="邮箱输入格式错误，请检查后输入"
@@ -55,13 +83,20 @@ include '../function/PasswordMd5.php';
             <input type="text" name="weiChatNum" class="formInputStyle_01"
                    pattern="[0-9]{1,20}" title="QQ输入格式错误，请检查后输入"
                    placeholder="微信: 选填"/><br/><br/>
+            <input type="text" name="address" class="formInputStyle_01"
+                   placeholder="住址: 选填"/><br/><br/>
             <input type="text" name="phoneNum" class="formInputStyle_01"
-                   pattern="[0-9]{1,20}" title="微信输入格式错误，请检查后输入"
-                   placeholder="手机号: 选填"/>
+                   pattern="[0-9]{1,11}" title="手机号输入格式错误，请检查后输入"
+                   placeholder="手机号: 选填"/><br/><br/>
+
+<!--            文件上传-->
+            <h4 style="color: rgb(223,255,164);">上传自己的照片一张--随意--可选：</h4>
+            <div class="wrap">
+                <span>上 传 照 片</span>
+                <input id="file" name="file" class="file" type="file" />
+            </div>
             <br/>
-            <label for="file">文件名：</label>
-            <input type="file" name="file" id="file"><br>
-            <input type="submit" name="submit" value="提交">
+
             <div class="div_bottom">
                 <button class="buttonStyle_01" type="submit" autofocus>录 入</button>
             </div>
@@ -70,7 +105,6 @@ include '../function/PasswordMd5.php';
     <div class="div_body_2">
         <h4 style="color: #ffffff;">已录入信息？点击
             <a href="/data/php/userControl/singUp.php" style="color: #cff1ba">登录</a>
-            <?php echo main(); ?>
         </h4>
     </div>
 </body>

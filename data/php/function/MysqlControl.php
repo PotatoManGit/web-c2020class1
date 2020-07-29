@@ -2,12 +2,15 @@
 这个文件无法执行，进应用于引用目的-->
 <?php
 //本函数用来连接数据库
-function connectMysql($host/*数据库url*/, $user/*用户名*/, $password/*密码*/,
-                      $database/*数据库名*/, $charset/*字符集*/){
+function connectMysql(){
+    $user = "root";
+    $password = "root";
+    $database = "c2020class1_potatost_xyz";
     $dsn = sprintf("mysql:host = %s; dbname = %s; charset = %s",
-        $host, $database, $charset
+        "127.0.0.1",
+        "c2020class1_potatost_xyz",
+        "utf-8"
     );
-
     try {
         $pdo = new PDO($dsn, $user, $password);// 连接
         $pdo -> setAttribute(PDO::ATTR_ERRMODE,
@@ -21,7 +24,7 @@ function connectMysql($host/*数据库url*/, $user/*用户名*/, $password/*密�
 }
 //本函数用于表查询，只能查询一个结果
 function inquireTable($pdo/*PDO变量*/, $table/*表名*/, $key/*查询关键词*/,
-                      $inputName/*查询依据*/, $resName/*查询结果索引*/){
+                      $inputName/*查询依据索引*/, $resName/*查询结果索引*/){
     try{
         $sql = sprintf("SELECT %s FROM %s WHERE %s LIKE '%s'",$resName ,$table, $inputName, $key);
         $res = $pdo -> query($sql);//查询结果集

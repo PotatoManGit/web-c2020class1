@@ -8,8 +8,7 @@
         $autoSingUpPass = passport_decrypt($_COOKIE["singUpPassword"], 189669);
 
         //连接数据库
-        $pdo = connectMysql("127.0.0.1","root",
-            "root","c2020class1_potatost_xyz","utf-8");
+        $pdo = connectMysql();
 
         //获取表单数据
         $username = $_POST["username"];
