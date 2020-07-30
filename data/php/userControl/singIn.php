@@ -12,13 +12,25 @@ include '../function/PasswordMd5.php';
             if($_POST["license"] == 189669){
                 if($_POST["password"] == $_POST["passwordAgain"]){
                     $make = sprintf("INSERT INTO user_basic_data (username, password) 
-                            VALUES (%s, %s)", $_POST["username"], $_POST["password"]);
+                            VALUES ('%s', '%s')", $_POST["username"], $_POST["password"]);
                     $pdo -> exec($make);
 
-                    //获取用户ID
-                    $userID = inquireTable($pdo, "user_basic_data", $_POST["username"],
-                        "username", "id");
+//                    $id = inquireTable($pdo, "user_basic_data", $_POST["username"],
+//                        "username", "id");
 
+                    //传输通讯信息
+                    $make = sprintf("INSERT INTO user_communication_data
+                                (username ,email, qq, weChat, address, phoneNum)
+                                VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
+//                        $id,
+                        $_POST["username"],
+                        $_POST["email"],
+                        $_POST["qqNum"],
+                        $_POST["weiChatNum"],
+                        $_POST["address"],
+                        $_POST["phoneNum"]);
+
+                    $pdo -> exec($make);
 
                     return "ok";
                 } else{
