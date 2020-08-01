@@ -11,8 +11,10 @@ include '../function/PasswordMd5.php';
 
             if($_POST["license"] == 189669){
                 if($_POST["password"] == $_POST["passwordAgain"]){
-                    $make = sprintf("INSERT INTO user_basic_data (username, password) 
-                            VALUES ('%s', '%s')", $_POST["username"], $_POST["password"]);
+                    $userId = date('Ymdhis', time());
+
+                    $make = sprintf("INSERT INTO user_basic_data (userId, username, password) 
+                            VALUES ('%s', '%s', '%s')",$userId , $_POST["username"], $_POST["password"]);
                     $pdo -> exec($make);
 
 //                    $id = inquireTable($pdo, "user_basic_data", $_POST["username"],
@@ -20,10 +22,9 @@ include '../function/PasswordMd5.php';
 
                     //传输通讯信息
                     $make = sprintf("INSERT INTO user_communication_data
-                                (username ,email, qq, weChat, address, phoneNum)
+                                (userId,email, qq, weChat, address, phoneNum)
                                 VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
-//                        $id,
-                        $_POST["username"],
+                        $userId,
                         $_POST["email"],
                         $_POST["qqNum"],
                         $_POST["weiChatNum"],
@@ -31,6 +32,12 @@ include '../function/PasswordMd5.php';
                         $_POST["phoneNum"]);
 
                     $pdo -> exec($make);
+
+                    $cookieData = passport_encrypt($_POST["username"], 189669);
+                    setcookie("singUpUsername", $cookieData, time()+3600*24*7);//保存7天
+
+                    $cookieData = passport_encrypt($_POST["password"], 189669);
+                    setcookie("singUpPassword", $cookieData, time()+3600*24*7);
 
                     return "ok";
                 } else{
@@ -66,7 +73,7 @@ include '../function/PasswordMd5.php';
 <!--    主体内容-->
     <center><div class="div_body_1">
             <h4 style="color: #ff2b2b;"><?php echo main(); ?></h4>
-        <form action="/data/php/userControl/singIn.php" method="post" enctype="multipart/form-data">
+        <form action="/data/php/userControl/signUp.php" method="post" enctype="multipart/form-data">
             <input type="text" name="license" class="formInputStyle_01"
                    required
                    pattern="189669" title="许可码错误"
@@ -116,7 +123,7 @@ include '../function/PasswordMd5.php';
     </div></center>
     <div class="div_body_2">
         <h4 style="color: #ffffff;">已录入信息？点击
-            <a href="/data/php/userControl/singUp.php" style="color: #cff1ba">登录</a>
+            <a href="/data/php/userControl/signIn.php" style="color: #cff1ba">登录</a>
         </h4>
     </div>
 </body>

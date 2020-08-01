@@ -33,10 +33,10 @@
                     $html = "<h4 style=\"color: #efffb8\">登录成功，等待跳转</h4>";
 
                     $cookieData = passport_encrypt($username, 189669);
-                    setcookie("singUpUsername", $cookieData, time()+3600*7*30);//保存一个月
+                    setcookie("singUpUsername", $cookieData, time()+3600*24*7);//保存7天
 
                     $cookieData = passport_encrypt($password, 189669);
-                    setcookie("singUpPassword", $cookieData, time()+3600*7*30);
+                    setcookie("singUpPassword", $cookieData, time()+3600*24*7);
                 }
                 else{
                     $html = "<h4 style=\"color: red\">密码错误</h4>";
@@ -71,7 +71,7 @@
 
 <!--    主体内容-->
     <center><div class="div_body_1">
-        <form action="/data/php/userControl/singUp.php" method="post">
+        <form action="/data/php/userControl/signIn.php" method="post">
             <input type="text" name="username" class="formInputStyle_01"
                    required
                    pattern="[A-Za-z0-9]{1,20}" title="用户名输入格式错误，请检查后输入"
@@ -93,7 +93,7 @@
     </div></center>
     <div class="div_body_2">
         <h4 style="color: #ffffff;">没有录入信息？点击
-            <a href="/data/php/userControl/singIn.php" style="color: #cff1ba">录入</a>
+            <a href="/data/php/userControl/signUp.php" style="color: #cff1ba">录入</a>
             <?php echo main(); ?>
         </h4>
     </div>
