@@ -1,4 +1,5 @@
 <?php
+//读取文件
 function fileRead($url/*文件地址和名称*/){
     $file = fopen($url, "r") or die("Unable to open file!");
     $result = fread($file,filesize($url));
@@ -6,6 +7,7 @@ function fileRead($url/*文件地址和名称*/){
     return $result;
 }
 
+//用于上传图片
 function fileUpload($dictionary/*存储的位置 格式：XXX/*/){
     // 获取时间
 //    $date = date("Y-m-d");
@@ -61,4 +63,16 @@ function fileUpload($dictionary/*存储的位置 格式：XXX/*/){
         $res = [0, "非法文件，无法识别该图片文件，或文件大小超过30MB", ""];
     }
     return $res;
+}
+
+//创建目录
+function dictionaryCreat($url/*创建的地址"xxx/xxx/"*/, $name/*名称"xxx"*/){
+    $dic = sprintf("%d%d", $url, $name);
+    $dir = iconv("UTF-8", "GBK", $dic);
+    if (!file_exists($dir)){
+        mkdir ($dir,0777,true);
+        return 1;
+    } else {
+        return 0;
+    }
 }

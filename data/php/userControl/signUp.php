@@ -33,6 +33,10 @@ include '../function/PasswordMd5.php';
 
                     $pdo -> exec($make);
 
+                    //创建用户文件夹及文件
+                    dictionaryCreat("../../user", $userId);
+
+                    //设置自动登录cookie
                     $cookieData = passport_encrypt($_POST["username"], 189669);
                     setcookie("singUpUsername", $cookieData, time()+3600*24*7);//保存7天
 
