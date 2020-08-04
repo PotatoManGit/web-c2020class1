@@ -74,3 +74,17 @@ function dictionaryCreat($dir/*目录的位置和名称*/){
         return "文件已存在,用户请忽略此项提示";
     }
 }
+
+//创建或写入文件
+//追加
+function fileWrite($url/*地址*/, $data/*内容*/){
+    $file = fopen($url, "a") or die("Unable to open file!");
+    fwrite($file, $data);
+    fclose($file);
+}
+//覆盖
+function fileOverwrite($url/*地址*/, $data/*内容*/){
+    $file = fopen($url, "w") or die("Unable to open file!");
+    fwrite($file, $data);
+    fclose($file);
+}
