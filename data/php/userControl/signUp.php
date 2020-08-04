@@ -2,15 +2,20 @@
 include '../function/FileControl.php';
 include '../function/MysqlControl.php';
 include '../function/PasswordMd5.php';
-    function main(){
-        $pdo = connectMysql();
-        if($_POST["license"]  != "" &&
-            $_POST["username"] != "" &&
-            $_POST["password"] != "" &&
-            $_POST["passwordAgain"] != "" ){
+function main(){
+    $pdo = connectMysql();
+    if($_POST["license"]  != "" &&
+        $_POST["username"] != "" &&
+        $_POST["password"] != "" &&
+        $_POST["passwordAgain"] != "" ){
 
-            if($_POST["license"] == 189669){
-                if($_POST["password"] == $_POST["passwordAgain"]){
+        if($_POST["license"] == 189669){
+
+            if($_POST["password"] == $_POST["passwordAgain"]){
+
+                if(inquireTable($pdo, "user_basic_data", $_POST["username"], "username"
+                        , "username") == ""){
+
                     $userId = date('Ymdhis', time());
 
                     $make = sprintf("INSERT INTO user_basic_data (userId, username, password) 
@@ -45,14 +50,17 @@ include '../function/PasswordMd5.php';
 
                     return "ok";
                 } else{
-                    return "两次输入密码不一致";
-                }
+                    return "用户已存在，请登录，或更换用户名注册";
+                    }
             } else{
-                return "请输入正确的许可码";
+                return "两次输入密码不一致";
             }
+        } else{
+            return "请输入正确的许可码";
         }
-      return "";
     }
+    return "";
+}
 ?>
 
 <!DOCTYPE html>
@@ -67,16 +75,16 @@ include '../function/PasswordMd5.php';
 </head>
 <body class="indexBodySetting">
 <!--    顶部内容-->
-    <div class="div_top">
-        <a href="/index.php"><img style="border-radius: 50% 50%;"
-                src="/data/web/data/img/logo/logoMain.png" width="10%"></a>
-        <h1 style="color: #f6fff4">永远的初2020届1班</h1>
-        <h2 style="color: #6eff6f;">信息录入</h2>
-    </div>
+<div class="div_top">
+    <a href="/index.php"><img style="border-radius: 50% 50%;"
+                              src="/data/web/data/img/logo/logoMain.png" width="10%"></a>
+    <h1 style="color: #f6fff4">永远的初2020届1班</h1>
+    <h2 style="color: #6eff6f;">信息录入</h2>
+</div>
 
 <!--    主体内容-->
-    <center><div class="div_body_1">
-            <h4 style="color: #ff2b2b;"><?php echo main(); ?></h4>
+<center><div class="div_body_1">
+        <h4 style="color: #ff2b2b;"><?php echo main(); ?></h4>
         <form action="/data/php/userControl/signUp.php" method="post" enctype="multipart/form-data">
             <input type="text" name="license" class="formInputStyle_01"
                    required
@@ -85,17 +93,17 @@ include '../function/PasswordMd5.php';
             <input type="text" name="username" class="formInputStyle_01"
                    required
                    pattern="[A-Za-z0-9]{1,20}" title="用户名输入格式错误，请检查后输入"
-                   placeholder="用户名：1-20位字母和数字--必填"/><br/><br/>
+                   placeholder="用户名：1-20位--必填"/><br/><br/>
             <input type="password" name="password" class="formInputStyle_01"
                    required
                    pattern="[A-Za-z0-9]{6,20}" title="密码输入格式错误，请检查后输入"
-                   placeholder="密码：6-20位字母和数字--必填"/><br/><br/>
+                   placeholder="密码：6-20位--必填"/><br/><br/>
             <input type="password" name="passwordAgain" class="formInputStyle_01"
                    required
                    pattern="[A-Za-z0-9]{6,20}" title="密码输入格式错误，请检查后输入"
                    placeholder="再输一遍密码"/><br/><br/>
 
-<!--            个人信息获取-->
+            <!--            个人信息获取-->
             <h3 style="color: #dfffa4;">以下均为个人信息，请选填:</h3>
             <input type="text" name="email" class="formInputStyle_01"
                    pattern="[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" title="邮箱输入格式错误，请检查后输入"
@@ -112,7 +120,7 @@ include '../function/PasswordMd5.php';
                    pattern="[0-9]{1,11}" title="手机号输入格式错误，请检查后输入"
                    placeholder="手机号: 选填"/><br/><br/>
 
-<!--            文件上传-->
+            <!--            文件上传-->
             <h4 style="color: rgb(223,255,164);">上传自己的照片一张--随意--可选：</h4>
             <div class="wrap">
                 <span>上 传 照 片</span>
@@ -125,10 +133,10 @@ include '../function/PasswordMd5.php';
             </div>
         </form>
     </div></center>
-    <div class="div_body_2">
-        <h4 style="color: #ffffff;">已录入信息？点击
-            <a href="/data/php/userControl/signIn.php" style="color: #cff1ba">登录</a>
-        </h4>
-    </div>
+<div class="div_body_2">
+    <h4 style="color: #ffffff;">已录入信息？点击
+        <a href="/data/php/userControl/signIn.php" style="color: #cff1ba">登录</a>
+    </h4>
+</div>
 </body>
 </html>
