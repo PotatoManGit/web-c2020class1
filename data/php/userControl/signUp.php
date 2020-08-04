@@ -11,7 +11,8 @@ include '../function/PasswordMd5.php';
 
             if($_POST["license"] == 189669){
                 if($_POST["password"] == $_POST["passwordAgain"]){
-                    $userId = date('Ymdhis', time());
+                    if(inquireTable($pdo, "user_basic_data", $_POST["username"], "username", "username") = ""){
+                        $userId = date('Ymdhis', time());
 
                     $make = sprintf("INSERT INTO user_basic_data (userId, username, password) 
                             VALUES ('%s', '%s', '%s')",$userId , $_POST["username"], $_POST["password"]);
@@ -44,6 +45,9 @@ include '../function/PasswordMd5.php';
                     setcookie("singUpPassword", $cookieData, time()+3600*24*7);
 
                     return "ok";
+                    } else{
+                        return "用户已存在，请登录，或更换用户名注册"
+                    }
                 } else{
                     return "两次输入密码不一致";
                 }
