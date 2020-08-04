@@ -2,6 +2,7 @@
 include '../function/FileControl.php';
 include '../function/MysqlControl.php';
 include '../function/PasswordMd5.php';
+include '../function/makeDictionary.php';
 function main(){
     $pdo = connectMysql();
     if($_POST["license"]  != "" &&
@@ -13,10 +14,13 @@ function main(){
 
             if($_POST["password"] == $_POST["passwordAgain"]){
 
-                if(inquireTable($pdo, "user_basic_data", $_POST["username"], "username"
-                        , "username") == ""){
+                $userId = date('Ymdhis', time());
 
-                    $userId = date('Ymdhis', time());
+                //验证是否用户名密码重复
+                if(inquireTable($pdo, "user_basic_data", $_POST["username"],
+                        "username", "username") == "" ||
+                    inquireTable($pdo, "user_basic_data", $userId,
+                        "userId", "userId") == ""){
 
                     $make = sprintf("INSERT INTO user_basic_data (userId, username, password) 
                             VALUES ('%s', '%s', '%s')",$userId , $_POST["username"], $_POST["password"]);
@@ -27,9 +31,10 @@ function main(){
 
                     //传输通讯信息
                     $make = sprintf("INSERT INTO user_communication_data
-                                (userId,email, qq, weChat, address, phoneNum)
-                                VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
+                                (userId, relName, email, qq, weChat, address, phoneNum)
+                                VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')",
                         $userId,
+                        $_POST["relName"],
                         $_POST["email"],
                         $_POST["qqNum"],
                         $_POST["weiChatNum"],
@@ -38,9 +43,6 @@ function main(){
 
                     $pdo -> exec($make);
 
-                    //创建用户文件夹及文件
-                    dictionaryCreat("../../user", $userId);
-
                     //设置自动登录cookie
                     $cookieData = passport_encrypt($_POST["username"], 189669);
                     setcookie("singUpUsername", $cookieData, time()+3600*24*7);//保存7天
@@ -48,7 +50,16 @@ function main(){
                     $cookieData = passport_encrypt($_POST["password"], 189669);
                     setcookie("singUpPassword", $cookieData, time()+3600*24*7);
 
-                    return "ok";
+                    //创建必要文件和目录
+                    makeDictionary($userId);
+
+                    $upResult = photoUpload(sprintf("../../user/%s/imgMain/", $userId));
+                    if($upResult[0] != 1){
+                        return sprintf("<meta http-equiv=\"refresh\" 
+                                content=\"0;url=http://c2020class1.potatost.xyz/data/user/%s/\">", $userId);
+                    } else{
+                        return $upResult[1];
+                    }
                 } else{
                     return "用户已存在，请登录，或更换用户名注册";
                     }
@@ -84,7 +95,6 @@ function main(){
 
 <!--    主体内容-->
 <center><div class="div_body_1">
-        <h4 style="color: #ff2b2b;"><?php echo main(); ?></h4>
         <form action="/data/php/userControl/signUp.php" method="post" enctype="multipart/form-data">
             <input type="text" name="license" class="formInputStyle_01"
                    required
@@ -105,6 +115,8 @@ function main(){
 
             <!--            个人信息获取-->
             <h3 style="color: #dfffa4;">以下均为个人信息，请选填:</h3>
+            <input type="text" name="relName" class="formInputStyle_01"
+                   placeholder="真实姓名: 选填"/><br/><br/>
             <input type="text" name="email" class="formInputStyle_01"
                    pattern="[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" title="邮箱输入格式错误，请检查后输入"
                    placeholder="邮箱: 选填"/><br/><br/>
@@ -121,13 +133,12 @@ function main(){
                    placeholder="手机号: 选填"/><br/><br/>
 
             <!--            文件上传-->
-            <h4 style="color: rgb(223,255,164);">上传自己的照片一张--随意--可选：</h4>
+            <h4 style="color: rgb(223,255,164);">上传自己的照片一张--随意--选填：</h4>
             <div class="wrap">
                 <span>上 传 照 片</span>
                 <input id="file" name="file" class="file" type="file" />
             </div>
             <br/>
-
             <div class="div_bottom">
                 <button class="buttonStyle_01" type="submit" autofocus>录 入</button>
             </div>
@@ -137,6 +148,7 @@ function main(){
     <h4 style="color: #ffffff;">已录入信息？点击
         <a href="/data/php/userControl/signIn.php" style="color: #cff1ba">登录</a>
     </h4>
+    <h4 style="color: #ff2b2b;"><?php echo main(); ?></h4>
 </div>
 </body>
 </html>

@@ -20,23 +20,36 @@
             $getAutoResult = inquireTable($pdo, "user_basic_data", $autoSingUpUser,
                 "username", "password");
             if($autoSingUpPass == $getAutoResult){
-                $html = "<h4 style=\"color: #efffb8\">登录成功，等待跳转</h4>";
+//                $html = "<h4 style=\"color: #efffb8\">登录成功，等待跳转</h4>";
+                $getUserId = inquireTable($pdo, "user_basic_data", $autoSingUpUser,
+                    "username", "userId");
+
+                //userId查询
+                $goData = sprintf("<meta http-equiv=\"refresh\" 
+                                content=\"0;url=http://c2020class1.potatost.xyz/data/user/%s/\">", $getUserId);
+                $html = $goData;
             }
         }
         else if($username != "" || $password != ""){
             //查询
-            $getResult = inquireTable($pdo, "user_basic_data", $username,
+            $getPassword = inquireTable($pdo, "user_basic_data", $username,
                 "username", "password");
+            $getUserId = inquireTable($pdo, "user_basic_data", $username,
+                                                 "username", "userId");
+            if ($getPassword != ""){//用户名错误
+                if($getPassword == $password){
+//                    $html = "<h4 style=\"color: #efffb8\">登录成功，等待跳转</h4>";
 
-            if ($getResult != ""){//用户名错误
-                if($getResult == $password){
-                    $html = "<h4 style=\"color: #efffb8\">登录成功，等待跳转</h4>";
-
+                    //cookie 设定
                     $cookieData = passport_encrypt($username, 189669);
                     setcookie("singUpUsername", $cookieData, time()+3600*24*7);//保存7天
 
                     $cookieData = passport_encrypt($password, 189669);
                     setcookie("singUpPassword", $cookieData, time()+3600*24*7);
+
+                    $goData = sprintf("<meta http-equiv=\"refresh\" 
+                                content=\"0;url=http://c2020class1.potatost.xyz/data/user/%s/\">", $getUserId);
+                    $html = $goData;
                 }
                 else{
                     $html = "<h4 style=\"color: red\">密码错误</h4>";

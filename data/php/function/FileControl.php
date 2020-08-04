@@ -8,7 +8,7 @@ function fileRead($url/*文件地址和名称*/){
 }
 
 //用于上传图片
-function fileUpload($dictionary/*存储的位置 格式：XXX/*/){
+function photoUpload($dictionary/*存储的位置 格式：XXX/*/){
     // 获取时间
 //    $date = date("Y-m-d");
 
@@ -66,13 +66,11 @@ function fileUpload($dictionary/*存储的位置 格式：XXX/*/){
 }
 
 //创建目录
-function dictionaryCreat($url/*创建的地址"xxx/xxx/"*/, $name/*名称"xxx"*/){
-    $dic = sprintf("%d%d", $url, $name);
-    $dir = iconv("UTF-8", "GBK", $dic);
-    if (!file_exists($dir)){
-        mkdir ($dir,0777,true);
-        return 1;
-    } else {
-        return 0;
+function dictionaryCreat($dir/*目录的位置和名称*/){
+    if(!file_exists($dir)){
+        mkdir($dir);
+        return "";
+    } else{
+        return "文件已存在,用户请忽略此项提示";
     }
 }

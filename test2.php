@@ -1,6 +1,6 @@
 <?php
 include 'data/php/function/FileControl.php';
-echo fileUpload("upload/")[1];
+echo photoUpload("upload/")[1];
 ?>
 <html>
 <head>
