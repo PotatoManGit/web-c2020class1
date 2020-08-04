@@ -85,11 +85,11 @@ include '../function/PasswordMd5.php';
             <input type="text" name="username" class="formInputStyle_01"
                    required
                    pattern="[A-Za-z0-9]{1,20}" title="用户名输入格式错误，请检查后输入"
-                   placeholder="用户名：1-20位--必填"/><br/><br/>
+                   placeholder="用户名：1-20位字母和数字--必填"/><br/><br/>
             <input type="password" name="password" class="formInputStyle_01"
                    required
                    pattern="[A-Za-z0-9]{6,20}" title="密码输入格式错误，请检查后输入"
-                   placeholder="密码：6-20位--必填"/><br/><br/>
+                   placeholder="密码：6-20位字母和数字--必填"/><br/><br/>
             <input type="password" name="passwordAgain" class="formInputStyle_01"
                    required
                    pattern="[A-Za-z0-9]{6,20}" title="密码输入格式错误，请检查后输入"
