@@ -10,6 +10,7 @@ function main(){
         $_POST["password"] != "" &&
         $_POST["passwordAgain"] != "" ){
 
+<<<<<<< HEAD
         if($_POST["license"] == 189669){
 
             if($_POST["password"] == $_POST["passwordAgain"]){
@@ -21,6 +22,12 @@ function main(){
                         "username", "username") == "" ||
                     inquireTable($pdo, "user_basic_data", $userId,
                         "userId", "userId") == ""){
+=======
+            if($_POST["license"] == 189669){
+                if($_POST["password"] == $_POST["passwordAgain"]){
+                    if(inquireTable($pdo, "user_basic_data", $_POST["username"], "username", "username") = ""){
+                        $userId = date('Ymdhis', time());
+>>>>>>> 10915ff3d76029fce7a7c2632c32a9a886c7e170
 
                     $make = sprintf("INSERT INTO user_basic_data (userId, username, password) 
                             VALUES ('%s', '%s', '%s')",$userId , $_POST["username"], $_POST["password"]);
@@ -50,6 +57,7 @@ function main(){
                     $cookieData = passport_encrypt($_POST["password"], 189669);
                     setcookie("singUpPassword", $cookieData, time()+3600*24*7);
 
+<<<<<<< HEAD
                     //创建必要文件和目录
                     makeDictionary($userId);
 
@@ -59,6 +67,11 @@ function main(){
                                 content=\"0;url=http://c2020class1.potatost.xyz/data/user/%s/\">", $userId);
                     } else{
                         return $upResult[1];
+=======
+                    return "ok";
+                    } else{
+                        return "用户已存在，请登录，或更换用户名注册"
+>>>>>>> 10915ff3d76029fce7a7c2632c32a9a886c7e170
                     }
                 } else{
                     return "用户已存在，请登录，或更换用户名注册";
