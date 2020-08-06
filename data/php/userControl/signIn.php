@@ -42,10 +42,10 @@
 
                     //cookie 设定
                     $cookieData = passport_encrypt($username, 189669);
-                    setcookie("singUpUsername", $cookieData, time()+3600*24*7);//保存7天
+                    setcookie("singUpUsername", $cookieData, time()+3600*24*7, '/');//保存7天
 
                     $cookieData = passport_encrypt($password, 189669);
-                    setcookie("singUpPassword", $cookieData, time()+3600*24*7);
+                    setcookie("singUpPassword", $cookieData, time()+3600*24*7, '/');
 
                     $goData = sprintf("<meta http-equiv=\"refresh\" 
                                 content=\"0;url=http://c2020class1.potatost.xyz/data/user/%s/\">", $getUserId);

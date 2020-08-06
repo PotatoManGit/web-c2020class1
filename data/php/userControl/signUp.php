@@ -1,8 +1,8 @@
 <?php
-include '../function/FileControl.php';
 include '../function/MysqlControl.php';
 include '../function/PasswordMd5.php';
 include '../function/makeDictionary.php';
+include '../function/FileControl.php';
 function main(){
     $pdo = connectMysql();
     if($_POST["license"]  != "" &&
@@ -45,17 +45,17 @@ function main(){
 
                     //设置自动登录cookie
                     $cookieData = passport_encrypt($_POST["username"], 189669);
-                    setcookie("singUpUsername", $cookieData, time()+3600*24*7);//保存7天
+                    setcookie("singUpUsername", $cookieData, time()+3600*24*7, '/');//保存7天
 
                     $cookieData = passport_encrypt($_POST["password"], 189669);
-                    setcookie("singUpPassword", $cookieData, time()+3600*24*7);
+                    setcookie("singUpPassword", $cookieData, time()+3600*24*7, '/');
 
 
                     //创建必要文件和目录
                     makeDictionary($userId);
 
-                    $upResult = photoUpload(sprintf("../../user/%s/imgMain/", $userId));
-                    if($upResult[0] != 1){
+                    $upResult = photoUpload(sprintf("../../user/%s/data/imgMain/", $userId));
+                    if($upResult[0] == 1){
                         return sprintf("<meta http-equiv=\"refresh\" 
                                 content=\"0;url=http://c2020class1.potatost.xyz/data/user/%s/\">", $userId);
                     } else{
@@ -135,7 +135,7 @@ function main(){
                    placeholder="手机号: 选填"/><br/><br/>
 
             <!--            文件上传-->
-            <h4 style="color: rgb(223,255,164);">上传自己的照片一张--随意--选填：</h4>
+            <h4 style="color: rgb(223,255,164);">上传自己的照片一张--横版--选填：</h4>
             <div class="wrap">
                 <span>上 传 照 片</span>
                 <input id="file" name="file" class="file" type="file" />
