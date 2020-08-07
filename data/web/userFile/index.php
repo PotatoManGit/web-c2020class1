@@ -26,7 +26,7 @@ function main(){
 
         //后台接应user是否为本人判断
         if($userId == "{userIdReal}"){
-            $editCheck = "<br/><a href=\"/memoryArea.php\">
+            $editCheck = "<br/><br/><a href=\"/memoryArea.php\">
                           <button type=\"submit\" class=\"buttonStyle_01\">编辑空间</button>
                           </a>";
         } else{

@@ -62,7 +62,7 @@ function photoUpload($dictionary/*存储的位置 格式：XXX/*/){
                 move_uploaded_file($_FILES["file"]["tmp_name"],
                     $dictionary . $_FILES["file"]["name"]);
 //                echo "文件存储在: " . $dictionary . $_FILES["file"]["name"];
-                $res = [1, "上传成功", $dictionary . $_FILES["file"]["name"]];
+                $res = [1, "上传成功", $_FILES["file"]["name"]];
             }
         }
     }

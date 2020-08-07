@@ -56,10 +56,14 @@ function main(){
 
                     $upResult = photoUpload(sprintf("../../user/%s/data/imgMain/", $userId));
                     if($upResult[0] == 1){
-                        return sprintf("<meta http-equiv=\"refresh\" 
-                                content=\"0;url=http://c2020class1.potatost.xyz/data/user/%s/\">", $userId);
+
+                        $pdo -> exec(sprintf("INSERT INTO user_img_data (userId, ownPhoto) 
+                                        values ('%s','%s')", $userId, $upResult[2]));
+
+                        return "<meta http-equiv=\"refresh\" 
+                                content=\"0;url=http://c2020class1.potatost.xyz/data/php/userControl/signIn.php\">";
                     } else{
-                        return $upResult[1]."<br/>如果你没有上传文件，请点击<a href='signIn.php'>忽略</a>";
+                        return $upResult[1]."<br/>如果你没有上传照片，请点击<a href='signIn.php'>忽略</a>";
                     }
 
                 } else{
