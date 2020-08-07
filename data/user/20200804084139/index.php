@@ -23,6 +23,17 @@ function main(){
         //数据库获取数据
         $userId = inquireTable($pdo, "user_basic_data", $autoSingUpUser,
             "username", "userId");
+
+        //后台接应user是否为本人判断
+        if($userId == "{userIdReal}"){
+            $editCheck = "<br/><a href=\"/memoryArea.php\">
+                          <button type=\"submit\" class=\"buttonStyle_01\">编辑空间</button>
+                          </a>";
+        } else{
+            $userId = "{userIdReal}";
+            $editCheck = "";
+        }
+
         $ownPhoto = inquireTable($pdo, "user_img_data", $userId,
             "userId", "ownPhoto");
         $headPortrait = inquireTable($pdo, "user_img_data", $userId,
@@ -102,7 +113,8 @@ function main(){
                                 "{headPortrait}" => $headPortrait,
                                 "{background}" => $background,
                                 "{userInformation}" => $userInformationOut,
-                                "{userText}" => $userText));
+                                "{userText}" => $userText,
+                                "{editCheck}" => $editCheck));
 
         return $web;
     } else{

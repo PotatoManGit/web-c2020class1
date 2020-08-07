@@ -6,6 +6,15 @@ function fileRead($url/*文件地址和名称*/){
     fclose($file);
     return $result;
 }
+function fileReadPhp($url/*文件的地址和名称*/){
+    $handle = fopen($url, 'r');
+    $content = '';
+    while(!feof($handle)){
+        $content .= fread($handle, 8080);
+    }
+    fclose($handle);
+    return $content;
+}
 
 //用于上传图片
 function photoUpload($dictionary/*存储的位置 格式：XXX/*/){

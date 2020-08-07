@@ -13,8 +13,8 @@ function makeDictionary($userId){
 
     //创建根目录文件
     fileOverwrite(sprintf("../../user/%s/index.php", $userId),
-        fileRead("../../web/userFile/index.php"));
-    fileOverwrite(sprintf("../../user/%s/index.php", $userId),
+        strtr(fileRead("../../web/userFile/index.php"), array("{userIdReal}" => $userId)));
+    fileOverwrite(sprintf("../../user/%s/userSetting.php", $userId),
         fileRead("../../web/userFile/userSetting.php"));
 
     //创建data中文件

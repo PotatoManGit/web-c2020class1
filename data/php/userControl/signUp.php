@@ -59,7 +59,7 @@ function main(){
                         return sprintf("<meta http-equiv=\"refresh\" 
                                 content=\"0;url=http://c2020class1.potatost.xyz/data/user/%s/\">", $userId);
                     } else{
-                        return $upResult[1];
+                        return $upResult[1]."<br/>如果你没有上传文件，请点击<a href='signIn.php'>忽略</a>";
                     }
 
                 } else{
