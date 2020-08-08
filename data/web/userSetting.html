@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑{username}的小窝</title>
+    <link rel="icon" type="image/x-icon" href="/data/web/data/img/logo/logoMain.png"/>
+    <link rel="stylesheet" href="/data/web/data/css/userMainStyle.css">
+    <link rel="stylesheet" href="/data/web/data/css/mainStyle.css">
+    <link rel="stylesheet" href="/data/web/data/css/mainStyle.css">
+    <link rel="stylesheet" href="/wangEditor-master/release/mainStyle.css">
+    <style type="text/css">
+        .bg{
+            background-image:linear-gradient( rgba(0, 0, 0, 0.36), rgba(0, 0, 0, 0.36)),
+            url("/data/user/{userId}/data/imgMain/{background}");/*PHP*/
+            background-attachment:fixed;
+            background-repeat:no-repeat;
+            background-size:cover;
+            -moz-background-size:cover;
+            -webkit-background-size:cover;
+        }
+        .divInText{
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+        .buttonStyle_02 {
+            background-color: rgba(255,92,67,0);
+            border-color: #b8ffff;
+            border-style: solid;
+            border-width: 2px;
+            border-radius: 30px;
+            width: 120px;
+            height: 40px;
+            color: #b8ffff;
+            font-size: 20px;
+            cursor: pointer;
+
+        }
+        .buttonStyle_02:hover {
+            transition: 250ms;
+            border-color: #b8ffff;
+            color: #000000;
+            background-color: #b8ffff;
+        }
+    </style>
+</head>
+<body class="bg">
+<!--顶部内容-->
+<br/><br/>
+<center><div class="div_top">
+    <a href="/data/user/{userId}/">
+        <img style="border-radius: 50%;"
+             src="/data/user/{userId}/data/imgMain/{headPortrait}" width="10%"></a>
+
+    <form action="/data/user/{userId}/userSetting">
+        <h4 style="color: rgb(223,255,164);">更换自己的头像</h4>
+        <div class="wrap">
+            <span>上 传 照 片</span>
+            <input id="file" name="file" class="file" type="file" />
+        </div><br/><br/>
+        <button type="submit" class="buttonStyle_02">点击上传</button>
+    </form>
+    <a href="/data/user/{userId}/"><h1 style="color: #f6fff4">{username}</h1></a>
+    <h2 style="color: #6eff6f;">那个夏天，等我们再见</h2>
+</div></center>
+
+<!--    主体内容-->
+<center><div class="div_body_1">
+    <img style="border-radius: 90px"
+         src="/data/user/{userId}/data/imgMain/{ownPhoto}" width="100%">
+</div></center>
+
+<div class="div_body_3">
+    <h3 style="color: #e5ffb9">Ta的信息</h3>
+    <h4 style="color: #ffffff">
+        {userInformation}
+    </h4>
+    <form method="post" action="/data/user/{userId}/userSetting.php"
+</div>
+
+<div class="divInText">
+    <center><h3 style="color: #e5ffb9">Ta的留言</h3></center>
+    <div style="background: white" id="div1">
+        {userText}
+    </div><br/>
+    <form action="/data/user/{suerID}/userSetting.php" method="post">
+        <!--    转发js text内容于php-->
+        <label for="text"></label><input hidden type="text" name="textData" id="text">
+        <center><button id="btn1" class="buttonStyle_02">提 交</button></center>
+    </form>
+</div>
+
+<div class="div_bottom">
+    <h5 style="color: white">
+        由: <a href="http://www.potatost.xyz">子雨PotatoStudio</a>制作|作者:
+        <a href="http://www.potatost.xyz">PotatoMan</a>|粤ICP备19144311号-4
+    </h5>
+</div>
+<script type="text/javascript" src="/wangEditor-master/release/wangEditor.min.js"></script>
+<script type="text/javascript">
+    var E = window.wangEditor
+    var editor = new E('#div1')
+    editor.create()
+
+    document.getElementById('btn1').addEventListener('click', function () {
+        // 读取 html
+        document.getElementById("text").value = editor.txt.html();
+    }, false)
+
+</script>
+</body>
+</html>

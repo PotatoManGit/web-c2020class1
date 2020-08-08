@@ -26,8 +26,8 @@ function main(){
 
         //后台接应user是否为本人判断
         if($userId == "20200807102605"){
-            $editCheck = "<br/><br/><a href=\"/memoryArea.php\">
-                          <button type=\"submit\" class=\"buttonStyle_01\">编辑空间</button>
+            $editCheck = "<br/><br/><br/><a href=\"/data/user/$userId/userSetting.php\">
+                          <button type=\"submit\" class=\"buttonStyle_02\">编辑空间</button>
                           </a>";
         } else{
             $userId = "20200807102605";
@@ -76,32 +76,32 @@ function main(){
             $relName = $autoSingUpUser;
         }
         if ($email != ""){
-            $email = "我的邮箱:".$email;
+            $email = "我的邮箱:".$email."<br/>";
         }
         if ($qq != ""){
-            $qq = "我的qq:".$qq;
+            $qq = "我的qq:".$qq."<br/>";
         }
         if ($weChat != ""){
-            $weChat = "我的微信:".$weChat;
+            $weChat = "我的微信:".$weChat."<br/>";
         }
         if ($address != ""){
-            $address = "我的住址:".$address;
+            $address = "我的住址:".$address."<br/>";
         }
         if ($phoneNum != ""){
-            $phoneNum = "我的电话号码:".$phoneNum;
+            $phoneNum = "我的电话号码:".$phoneNum."<br/>";
         }
-        if ($email == "" ||
-            $qq == "" ||
-            $weChat == "" ||
-            $address == "" ||
+        if ($email == "" &
+            $qq == "" &
+            $weChat == "" &
+            $address == "" &
             $phoneNum == ""){
             $userInformationOut = "Ta什么都没有留下";
         } else{
-            $userInformation = [$email, $qq, $weChat, $address, $phoneNum];
 
             $userInformationOut = "";
-            for ($i = 0; $i <=0; $i++){
-                $userInformationOut = $userInformation[$i]."<br/>";
+            for ($i = 0; $i <=0; $i = $i + 1){
+                $userInformation = sprintf("%s%s%s%s%s",
+                    $email, $qq, $weChat, $address, $phoneNum);
             }
         }
 
@@ -112,7 +112,7 @@ function main(){
                                 "{ownPhoto}" => $ownPhoto,
                                 "{headPortrait}" => $headPortrait,
                                 "{background}" => $background,
-                                "{userInformation}" => $userInformationOut,
+                                "{userInformation}" => $userInformation,
                                 "{userText}" => $userText,
                                 "{editCheck}" => $editCheck));
 
@@ -123,3 +123,4 @@ function main(){
 
 }
 echo main();
+?>

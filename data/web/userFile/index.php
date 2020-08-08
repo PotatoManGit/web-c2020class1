@@ -26,8 +26,8 @@ function main(){
 
         //后台接应user是否为本人判断
         if($userId == "{userIdReal}"){
-            $editCheck = "<br/><br/><a href=\"/memoryArea.php\">
-                          <button type=\"submit\" class=\"buttonStyle_01\">编辑空间</button>
+            $editCheck = "<br/><br/><br/><a href=\"/data/user/$userId/userSetting.php\">
+                          <button type=\"submit\" class=\"buttonStyle_02\">编辑空间</button>
                           </a>";
         } else{
             $userId = "{userIdReal}";
@@ -38,8 +38,8 @@ function main(){
             "userId", "ownPhoto");
         $headPortrait = inquireTable($pdo, "user_img_data", $userId,
             "userId", "headPortrait");
-/*        $theme = inquireTable($pdo, "user_img_data", $userId,
-            "userId", "theme");*/
+        /*        $theme = inquireTable($pdo, "user_img_data", $userId,
+                    "userId", "theme");*/
         $background = inquireTable($pdo, "user_img_data", $userId,
             "userId", "background");
 
@@ -76,45 +76,45 @@ function main(){
             $relName = $autoSingUpUser;
         }
         if ($email != ""){
-            $email = "我的邮箱:".$email;
+            $email = "我的邮箱:".$email."<br/>";
         }
         if ($qq != ""){
-            $qq = "我的qq:".$qq;
+            $qq = "我的qq:".$qq."<br/>";
         }
         if ($weChat != ""){
-            $weChat = "我的微信:".$weChat;
+            $weChat = "我的微信:".$weChat."<br/>";
         }
         if ($address != ""){
-            $address = "我的住址:".$address;
+            $address = "我的住址:".$address."<br/>";
         }
         if ($phoneNum != ""){
-            $phoneNum = "我的电话号码:".$phoneNum;
+            $phoneNum = "我的电话号码:".$phoneNum."<br/>";
         }
-        if ($email == "" ||
-            $qq == "" ||
-            $weChat == "" ||
-            $address == "" ||
+        if ($email == "" &
+            $qq == "" &
+            $weChat == "" &
+            $address == "" &
             $phoneNum == ""){
             $userInformationOut = "Ta什么都没有留下";
         } else{
-            $userInformation = [$email, $qq, $weChat, $address, $phoneNum];
 
             $userInformationOut = "";
-            for ($i = 0; $i <=0; $i++){
-                $userInformationOut = $userInformation[$i]."<br/>";
+            for ($i = 0; $i <=0; $i = $i + 1){
+                $userInformation = sprintf("%s%s%s%s%s",
+                    $email, $qq, $weChat, $address, $phoneNum);
             }
         }
 
 
 
         $web = strtr($web, array("{username}" => $relName,
-                                "{userId}" => $userId,
-                                "{ownPhoto}" => $ownPhoto,
-                                "{headPortrait}" => $headPortrait,
-                                "{background}" => $background,
-                                "{userInformation}" => $userInformationOut,
-                                "{userText}" => $userText,
-                                "{editCheck}" => $editCheck));
+            "{userId}" => $userId,
+            "{ownPhoto}" => $ownPhoto,
+            "{headPortrait}" => $headPortrait,
+            "{background}" => $background,
+            "{userInformation}" => $userInformation,
+            "{userText}" => $userText,
+            "{editCheck}" => $editCheck));
 
         return $web;
     } else{
