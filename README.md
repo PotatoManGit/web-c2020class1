@@ -2,5 +2,5 @@
 
 ## This project is made by Potato Man
 
-And this project is not finnish.
-And this project you can't use this for other class web. Because this project is made only by out class.
+It is completed!
+Bit 1.0.0
