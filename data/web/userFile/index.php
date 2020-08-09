@@ -88,21 +88,16 @@ function main(){
             $address = "我的住址:".$address."<br/>";
         }
         if ($phoneNum != ""){
-            $phoneNum = "我的电话号码:".$phoneNum."<br/>";
+            $phoneNum = "我的手机号码:".$phoneNum."<br/>";
         }
         if ($email == "" &
             $qq == "" &
             $weChat == "" &
             $address == "" &
             $phoneNum == ""){
-            $userInformationOut = "Ta什么都没有留下";
+            $userInformation = "Ta什么都没有留下";
         } else{
-
-            $userInformationOut = "";
-            for ($i = 0; $i <=0; $i = $i + 1){
-                $userInformation = sprintf("%s%s%s%s%s",
-                    $email, $qq, $weChat, $address, $phoneNum);
-            }
+            $userInformation = $email. $qq. $weChat. $address. $phoneNum;
         }
 
 

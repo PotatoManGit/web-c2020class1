@@ -15,7 +15,7 @@ function makeDictionary($userId){
     fileOverwrite(sprintf("../../user/%s/index.php", $userId),
         strtr(fileRead("../../web/userFile/index.php"), array("{userIdReal}" => $userId)));
     fileOverwrite(sprintf("../../user/%s/userSetting.php", $userId),
-        fileRead("../../web/userFile/userSetting.php"));
+        strtr(fileRead("../../web/userFile/userSetting.php"), array("{userIdReal}" => $userId)));
 
     //创建data中文件
     fileOverwrite(sprintf("../../user/%s/data/userText.html", $userId),

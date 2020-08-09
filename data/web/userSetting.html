@@ -51,14 +51,16 @@
         <img style="border-radius: 50%;"
              src="/data/user/{userId}/data/imgMain/{headPortrait}" width="10%"></a>
 
-    <form action="/data/user/{userId}/userSetting">
+    <form action="/data/user/{userId}/userSetting.php" method="post" enctype="multipart/form-data">
         <h4 style="color: rgb(223,255,164);">更换自己的头像</h4>
         <div class="wrap">
-            <span>上 传 照 片</span>
-            <input id="file" name="file" class="file" type="file" />
+            <span>点 击 选 择</span>
+            <input id="file" name="fileHead" class="file" type="file" />
         </div><br/><br/>
         <button type="submit" class="buttonStyle_02">点击上传</button>
+        <h4 style="color: white;">如果上传失败，请刷新重试！</h4>
     </form>
+    <h4 style="color: red">{tip1}</h4>
     <a href="/data/user/{userId}/"><h1 style="color: #f6fff4">{username}</h1></a>
     <h2 style="color: #6eff6f;">那个夏天，等我们再见</h2>
 </div></center>
@@ -68,27 +70,88 @@
     <img style="border-radius: 90px"
          src="/data/user/{userId}/data/imgMain/{ownPhoto}" width="100%">
 </div></center>
-
+<center><form action="/data/user/{userId}/userSetting.php" method="post" enctype="multipart/form-data">
+    <h4 style="color: rgb(223,255,164);">更换或添加自己的照片</h4>
+    <div class="wrap">
+        <span>点 击 选 择</span>
+        <input id="file" name="fileOwnPhoto" class="file" type="file" />
+    </div><br/><br/>
+    <button type="submit" class="buttonStyle_02">点击上传</button>
+    <h4 style="color: white;">如果上传失败，请刷新重试！</h4>
+</form>
+    <h4 style="color: red">{tip2}</h4>
+</center>
+<br/><br/>
+<center>
+    <p style="color: white;">-----------------------------------------------------------------------------------------</p>
+</center>
 <div class="div_body_3">
     <h3 style="color: #e5ffb9">Ta的信息</h3>
     <h4 style="color: #ffffff">
         {userInformation}
     </h4>
-    <form method="post" action="/data/user/{userId}/userSetting.php"
+    <form method="post" action="/data/user/{userId}/userSetting.php">
+        <h3 style="color: #dfffa4;">修改{username}的信息，请选填:</h3>
+        <h4 style="color: white;">真实姓名: 选填</h4 >
+        <input type="text" name="relName" class="formInputStyle_01"
+               placeholder="真实姓名: 选填" value="{relName}"/><br/><br/>
+        <h4 style="color: white;">邮箱: 选填</h4 >
+        <input type="text" name="email" class="formInputStyle_01"
+               pattern="[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$" title="邮箱输入格式错误，请检查后输入"
+               placeholder="邮箱: 选填" value="{email}"/><br/><br/>
+        <h4 style="color: white;">QQ: 选填</h4 >
+        <input type="text" name="qqNum" class="formInputStyle_01"
+               pattern="[0-9]{1,20}" title="邮箱输入格式错误，请检查后输入"
+               placeholder="QQ: 选填" value="{qq}"/><br/><br/>
+        <h4 style="color: white;">微信: 选填</h4 >
+        <input type="text" name="weiChatNum" class="formInputStyle_01"
+               pattern="[0-9]{1,20}" title="QQ输入格式错误，请检查后输入"
+               placeholder="微信: 选填" value="{weiChat}"/><br/><br/>
+        <h4 style="color: white;">住址: 选填</h4 >
+        <input type="text" name="address" class="formInputStyle_01"
+               placeholder="住址: 选填" value="{address}"/><br/><br/>
+        <h4 style="color: white;">手机号: 选填</h4 >
+        <input type="text" name="phoneNum" class="formInputStyle_01"
+               pattern="[0-9]{1,11}" title="手机号输入格式错误，请检查后输入"
+               placeholder="手机号: 选填" value="{phoneNum}"/><br/><br/>
+        <button type="submit" class="buttonStyle_02">提 交</button>
+    </form>
+    <h4 style="color: red">{tip3}</h4>
 </div>
-
+<center>
+    <p style="color: white;">-----------------------------------------------------------------------------------------</p>
+</center>
 <div class="divInText">
     <center><h3 style="color: #e5ffb9">Ta的留言</h3></center>
     <div style="background: white" id="div1">
         {userText}
     </div><br/>
-    <form action="/data/user/{suerID}/userSetting.php" method="post">
+    <form action="/data/user/{userId}/userSetting.php" method="post">
         <!--    转发js text内容于php-->
         <label for="text"></label><input hidden type="text" name="textData" id="text">
-        <center><button id="btn1" class="buttonStyle_02">提 交</button></center>
+        <center>
+            <button id="btn1" class="buttonStyle_02">提 交</button>
+            <h4 style="color: red">{tip4}</h4>
+        </center>
     </form>
 </div>
 
+<br/>
+<center>
+    <p style="color: white;">-----------------------------------------------------------------------------------------</p>
+</center>
+<center><form action="/data/user/{userId}/userSetting.php" method="post" enctype="multipart/form-data">
+    <h4 style="color: rgb(223,255,164);">更换背景图片</h4>
+    <div class="wrap">
+        <span>点 击 选 择</span>
+        <input id="file" name="fileBg" class="file" type="file" />
+    </div><br/><br/>
+    <button type="submit" class="buttonStyle_02">点击上传</button>
+    <h4 style="color: white;">如果上传失败，请刷新重试！</h4>
+    <h4 style="color: red">{tip5}</h4>
+</form></center>
+<center><a href="/data/user/{userId}/"><button class="buttonStyle_01">返回空间</button></a></center>
+<br/><br/>
 <div class="div_bottom">
     <h5 style="color: white">
         由: <a href="http://www.potatost.xyz">子雨PotatoStudio</a>制作|作者:

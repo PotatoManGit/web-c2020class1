@@ -18,7 +18,7 @@ function main(){
 
                 //验证是否用户名密码重复
                 if(inquireTable($pdo, "user_basic_data", $_POST["username"],
-                        "username", "username") == "" ||
+                        "username", "username") == "" &
                     inquireTable($pdo, "user_basic_data", $userId,
                         "userId", "userId") == ""){
 
@@ -54,7 +54,7 @@ function main(){
                     //创建必要文件和目录
                     makeDictionary($userId);
 
-                    $upResult = photoUpload(sprintf("../../user/%s/data/imgMain/", $userId));
+                    $upResult = photoUpload(sprintf("../../user/%s/data/imgMain/", $userId), "file");
                     if($upResult[0] == 1){
 
                         $pdo -> exec(sprintf("INSERT INTO user_img_data (userId, ownPhoto) 
@@ -141,7 +141,7 @@ function main(){
             <!--            文件上传-->
             <h4 style="color: rgb(223,255,164);">上传自己的照片一张--横版--选填：</h4>
             <div class="wrap">
-                <span>上 传 照 片</span>
+                <span>点 击 选 择</span>
                 <input id="file" name="file" class="file" type="file" />
             </div>
             <br/>
