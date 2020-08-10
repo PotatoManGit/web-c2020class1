@@ -15,6 +15,23 @@ function fileReadPhp($url/*文件的地址和名称*/){
     fclose($handle);
     return $content;
 }
+function fileReadContent($url/*文件的地址和名称*/)
+{
+    $file = fopen($url, 'r');
+    $content = array();
+    if (!$file) {
+        return 'file open fail';
+    } else {
+        $i = 0;
+        while (!feof($file)) {
+            $content[$i] = mb_convert_encoding(fgets($file), "UTF-8", "GBK,ASCII,ANSI,UTF-8");
+            $i++;
+        }
+        fclose($file);
+        $content = array_filter($content); //数组去空
+    }
+    return $content;
+}
 
 //用于上传图片
 function photoUpload($dictionary/*存储的位置 格式：XXX/*/, $inputName/*input中Name参数*/){
@@ -97,3 +114,35 @@ function fileOverwrite($url/*地址*/, $data/*内容*/){
     fwrite($file, $data);
     fclose($file);
 }
+//获取目录下所有文件名
+function getSubdirectory($dir,$is_recursion = false)
+{
+    if ($is_recursion) {
+        $files = array();    //定义一个数组
+        if (is_dir($dir)) {        //检测是否存在文件
+
+            if ($handle = opendir($dir)) {    //打开目录
+
+                while (($file = readdir($handle)) !== false) {        //返回当前文件的条目
+
+                    if ($file != "." && $file != "..") {        //去除特殊目录
+
+                        if (is_dir($dir . "/" . $file)) {        //判断子目录是否还存在子目录
+
+                            $files[$file] = getSubdirectory($dir . "/" . $file,$is_recursion =true);        //递归调用本函数，再次获取目录
+                        } else {
+
+                            $files[] = $dir . "/" . $file;        //获取目录数组
+                        }
+                    }
+                }
+                closedir($handle);        //关闭文件夹
+                return $files;        //返回文件夹数组
+            }
+        }
+    }
+    $file = scandir($dir);
+
+    return $file;
+}
+

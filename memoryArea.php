@@ -18,17 +18,23 @@ function main(){
 
         $web = fileRead("memoryArea.html");
 
-        $pdo = connectMysql();
         $i = 1;
         $photoAll = "";
-        while (true){
-            $photo = inquireTable($pdo, "memory_img", $i, "id", "imgUrl");
-            if ($photo == ""){
-                break;
-            } else{
-                $photoAll = "<img src='$photo' width='20%'>".$photoAll;
+//        while (true){
+//            $photo = inquireTable($pdo, "memory_img", $i, "id", "imgUrl");
+//            if ($photo == ""){
+//                break;
+//            } else{
+//                $photoAll = "<img src='$photo' width='20%'>".$photoAll;
+//            }
+//            $i++;
+//        }
+
+        $photo = fileReadContent("data/photoList.txt");
+        for ($i = 0; $i <= count($photo); $i++){
+            if ($photo != ""){
+                $photoAll = "<a href='$photo[$i]'><img src='$photo[$i]' width='20%'></a>&nbsp&nbsp".$photoAll;
             }
-            $i++;
         }
         $web = strtr($web, array("{photoAll}" => $photoAll));
         return $web;
