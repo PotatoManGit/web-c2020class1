@@ -9,5 +9,7 @@ function main(){
             "https://www-potatost-user.oss-cn-hangzhou.aliyuncs.com/c2020class1/memoryImg/".
             $fileName[$i]."\n");
     }
+    $num = count($fileName) - 2;
+    echo ($num."张照片处理完成！");
 }
 main();
