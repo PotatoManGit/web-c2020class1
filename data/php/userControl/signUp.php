@@ -63,6 +63,8 @@ function main(){
                         return "<meta http-equiv=\"refresh\" 
                                 content=\"0;url=http://c2020class1.potatost.xyz/data/php/userControl/signIn.php\">";
                     } else{
+                        $pdo -> exec("INSERT INTO user_img_data (userId, ownPhoto) 
+                                        values ('','')");
                         return $upResult[1]."<br/>如果你没有上传照片，请点击<a href='signIn.php'>忽略</a>";
                     }
 
