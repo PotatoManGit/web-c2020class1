@@ -141,7 +141,7 @@ function main(){
                    placeholder="手机号: 选填"/><br/><br/>
 
             <!--            文件上传-->
-            <h4 style="color: rgb(223,255,164);">上传自己的照片一张--横版--选填：</h4>
+            <h4 style="color: rgb(223,255,164);">上传自己的照片一张--选填：</h4>
             <div class="wrap">
                 <span>点 击 选 择</span>
                 <input id="file" name="file" class="file" type="file" />
