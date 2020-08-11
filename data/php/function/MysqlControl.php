@@ -40,11 +40,17 @@ function inquireTable($pdo/*PDO变量*/, $table/*表名*/, $key/*查询关键词
 function inquireTableMany($pdo/*PDO变量*/, $table/*表名*/,
                       $relName/*查询依据索引*/){
     try{
-        $sql = sprintf("SELECT %s FROM %s", $relName, $table);
-        $res = $pdo -> query($sql);//查询结果集
-        return $res -> fetch(PDO::FETCH_BOTH);
-
-    }catch (PDOException $e) { // 错误处理
-        die($e->getMessage());
+        $query = sprintf("select * from %s", $table);//需要执行的sql语句
+        $res = $pdo->prepare($query);//准备查询语句
+        $res -> execute();
+        $resTurn = [];
+        $i = 0;
+        while($result = $res -> fetch(PDO::FETCH_ASSOC)){
+            $resTurn[$i] = $result[$relName];
+            $i++;
+        }
+        return $resTurn;
+    }catch(Exception $e){
+        die("Error!:".$e->getMessage().'<br>');
     }
 }

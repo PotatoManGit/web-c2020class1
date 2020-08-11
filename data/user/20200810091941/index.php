@@ -103,27 +103,34 @@ function main(){
         $userAll = "";
 
         //检索其他用户
-        $otherUserId = inquireTableMany($pdo, "user_basic_data", "userId");
-        echo $otherUserId[0];
-        for ($i = 0; $i <= count($otherUserId); $i++){
-            $otherUsername = inquireTable($pdo, "user_basic_data", $otherUserId[$i],
-                "userId", "userName");
-            $otherRelName = inquireTable($pdo, "user_communication_data", $otherUserId[$i],
+        $otherUserIds = inquireTableMany($pdo, "user_basic_data", "userId");
+
+        for ($i = 0; $i <= count($otherUserIds); $i++){
+            $otherUserId = $otherUserIds[$i];
+            $otherUsername = inquireTable($pdo, "user_basic_data", $otherUserId,
+                "userId", "username");
+            $otherRelName = inquireTable($pdo, "user_communication_data", $otherUserId,
                 "userId", "relName");
-            $otherOwnPhoto = inquireTable($pdo, "user_img_data", $otherUserId[$i],
+            $otherOwnImg = inquireTable($pdo, "user_img_data", $otherUserId,
                 "userId", "ownPhoto");
 
             if ($otherRelName != ""){
                 $otherUsername = $otherRelName;
             }
-            if ($otherUsername != "" & $otherUserId != ""){
-                $userAll = "<div><a href='/data/user/$otherUserId[$i]/'>
-                            <img src='/data/user/$otherUserId[$i]/data/imgMain/$otherOwnPhoto' width='10%'>
-                            <h3 style='color: white'>$otherUsername</h3>
-                        </a></div>".$userAll;
+
+            if ($otherUserId != "" & $otherUsername != "" & $otherOwnImg == ""){
+                $userAll = "<a href= '/data/user/$otherUserId/'>
+                            <div style='float: left; width: 50%'>
+                            <h3 style='color: white'>$otherUsername</h3></div></a>".$userAll;
+            } elseif ($otherUserId != "" & $otherUsername != "" & $otherOwnImg != ""){
+                $userAll = "<a href= '/data/user/$otherUserId/'>
+                            <div style='float: left; width: 50%'>
+                            <img src= '/data/user/$otherUserId/data/imgMain/$otherOwnImg' width='20%'><br/>
+                            <h3 style='color: white'>$otherUsername</h3></div></a>".$userAll;
             }
         }
 
+        $userAll = "<center>$userAll</center>";
 
         $web = strtr($web, array("{username}" => $relName,
             "{userId}" => $userId,
